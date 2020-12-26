@@ -1,8 +1,6 @@
 package com.video.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class User {
 	private static int idCounter;
@@ -11,7 +9,7 @@ public class User {
 	private String surname;
 	private String password;
 	private LocalDateTime registerDate;
-	private List<Integer> videosId= new ArrayList<>();
+
 	
 	public User(String name,String surname,String password) {
 		if (name.trim().equals(""))
@@ -27,10 +25,6 @@ public class User {
 		registerDate=LocalDateTime.now();	
 	}
 
-	public void addVideo(int videoId) {
-		videosId.add(videoId);
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -41,5 +35,13 @@ public class User {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public LocalDateTime getRegisterDate() {
+		return registerDate;
 	}
 }

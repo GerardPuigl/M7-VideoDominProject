@@ -5,13 +5,11 @@ import java.util.Scanner;
 import javax.management.openmbean.KeyAlreadyExistsException;
 import javax.security.sasl.AuthenticationException;
 
-import com.video.controller.Factory;
 import com.video.controller.UserController;
 import com.video.model.User;
 
 public class MenuNoLogin {
 
-	Factory constructor = new Factory();
 	UserController userController = new UserController();
 	
 	private int option = 100;
@@ -23,36 +21,31 @@ public class MenuNoLogin {
 	public User userLogin() {
 
 		do {
-			System.out.println("No heu iniciat sessió. \n Què voleu fer?\n" + 
-								"  (1) Afegir nou usuari\n"	+ 
-								"  (2) Iniciar sessió\n" + 
+			System.out.println("No heu iniciat sessió. \nTria una opció:\n" + 
+								"  (1) Registrar-se.\n"	+ 
+								"  (2) Iniciar sessió.\n" + 
 								"  (0) Finalitzar el programa.\n");
 
 			option= askOption();
 			switch (option) {
 
-			// crear usuari i el valida
+			// crear usuari
 			case 1:
-				System.out.println("Crear nou usuari.");
+				System.out.println("Crear nou usuari:");
 				String name = askName();
 				String surname = askSurname();
 				String password = askPassword();
 				try {
-					constructor.createUser(name, surname, password);
+					userController.addUser(name, surname, password);
+					System.out.println("Usuari Registrat.");
 				} catch (KeyAlreadyExistsException e) {
 					System.out.println("No s'ha pogut crear l'usuari\n" + e.getMessage());
 				}
-				try {
-					userValidated = userController.authenticationUser(name, surname, password);
-				} catch (AuthenticationException e) {
-					System.out.println(e.getMessage());
-				}
 				break;
-
 				
 			// validar usuari i rebre ID
 			case 2:
-				System.out.println("Iniciar sessió.");
+				System.out.println("Iniciar sessió:");
 				try {
 					userValidated = userController.authenticationUser(askName(), askSurname(), askPassword());
 				} catch (AuthenticationException e) {

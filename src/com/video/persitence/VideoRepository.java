@@ -14,8 +14,7 @@ public class VideoRepository {
 	
 	public List<Video> getAllVideos(){
 		return new ArrayList<>(videosList);
-	}
-	
+	}	
 	
 	public void addVideo(Video video) throws Exception{
 		if(video==null) throw new NullPointerException("El video no pot ser null.");

@@ -23,12 +23,24 @@ public class Video {
 		this.title=title;
 	}
 	
-	public int getId() {
-		return idVideo;
+	public int getUserId() {
+		return userId;
 	}
+	
 	
 	public void addTag(String tag) {
 		tags.add(tag);
 	}
 	
+	public String geturl() {
+		return url;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public int getIdVideo() {
+		return idVideo;
+	}
 }
