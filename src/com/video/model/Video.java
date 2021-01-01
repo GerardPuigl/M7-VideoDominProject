@@ -1,5 +1,8 @@
 package com.video.model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Video {
@@ -9,7 +12,13 @@ public class Video {
 	private String url;
 	private String title;
 	private int userId;
+	private LocalDateTime uploadDate;
 	private List<String> tags= new ArrayList<String>();
+	
+	private enum State {
+		Uploading, Verifying, Public;
+	}
+	
 	
 	public Video(String url,String title,int userId) throws Exception{
 		
@@ -21,6 +30,7 @@ public class Video {
 		this.userId=userId;
 		this.url=url;
 		this.title=title;
+		uploadDate=LocalDateTime.now();	
 	}
 	
 	public int getUserId() {
@@ -42,5 +52,17 @@ public class Video {
 
 	public int getIdVideo() {
 		return idVideo;
+	}
+	
+	//retorna l'estat de vídeo en funció del temps que fa que s'ha pujat
+	public String getVideoState() {
+		long d1 = Duration.between(uploadDate, LocalDateTime.now()).toMinutes();
+		if (d1 <= 1) {
+			return State.Uploading.toString();
+		} else if (d1 >= 1 && d1 <= 3) {
+			return State.Verifying.toString();
+		} else {
+			return State.Public.toString();
+		}
 	}
 }

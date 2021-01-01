@@ -37,7 +37,7 @@ public class Main {
 			userValidated=menuNoLogin.userLogin();
 		}
 		
-		//menú d'úsuari validad
+		//menú d'úsuari un cop validat l'usuari
 		if (userValidated!=null) {
 			menuLogin.menuUser(userValidated);
 		}

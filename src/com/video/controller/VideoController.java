@@ -47,4 +47,15 @@ public class VideoController implements IVideoDao {
 		return userVideoList;
 	}
 
+	//veure estat del vídeo
+	@Override
+	public String getVideoState(int videoId) {
+		for (Video video:videoList.getAllVideos()) {
+			if (video.getIdVideo()==videoId){
+				return video.getVideoState();
+			}
+		}
+		throw new NullPointerException("No existeix cap vídeo amb aquesta url");
+	}
+
 }
