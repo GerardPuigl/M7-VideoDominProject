@@ -79,16 +79,19 @@ public class MenuNoLogin {
 		return option;
 	}
 
+	//preguntar el nom d'usuari
 	public String askName() {
 		System.out.println("Introduïu el nom d'usuari:");
 		return scan.next();
 	}
 
+	//preguntar el cognom d'usuari
 	public String askSurname() {
 		System.out.println("Introduïu el cognom d'usuari:");
 		return scan.next();
 	}
 
+	//preguntar el password
 	public String askPassword() {
 		System.out.println("Introduïu el Password:");
 		return scan.next();

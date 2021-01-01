@@ -1,5 +1,7 @@
 package com.video.view;
 
+import java.time.LocalTime;
+
 import com.video.controller.*;
 import com.video.model.User;
 
@@ -17,12 +19,12 @@ public class Main {
 		
 //		/*Test
 		userController.addUser("Gerard", "Puig", "1234");
-		videoController.addVideo("www.servidor.com/video1", "Video1", 0);
-		videoController.addVideo("www.servidor.com/video2", "Video2", 0);
+		videoController.addVideo("www.servidor.com/video1", "Video1",LocalTime.parse("00:03:30"), 0);
+		videoController.addVideo("www.servidor.com/video2", "Video2",LocalTime.parse("00:01:10"), 0);
 		
 		userController.addUser("Jose", "Marín", "1111");
-		videoController.addVideo("www.servidor.com/video3", "Video3", 1);
-		videoController.addVideo("www.servidor.com/video4", "Video4", 1);	
+		videoController.addVideo("www.servidor.com/video3", "Video3",LocalTime.parse("00:10:30"), 1);
+		videoController.addVideo("www.servidor.com/video4", "Video4",LocalTime.parse("00:02:30"), 1);	
 
 		userController.addUser("Xavier", "Gonzalez", "4444");
 				
