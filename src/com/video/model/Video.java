@@ -77,39 +77,38 @@ public class Video {
 	private Status videoStatus= Status.Stop;
 	private LocalTime reproductionTime = LocalTime.of(0, 0, 0);
 
-	private Timer timer = new Timer();
-	private TimerTask play = new TimerTask() {
-
-		@Override
-		public void run() {
-			if (duration.isAfter(reproductionTime)) {
-				reproductionTime = reproductionTime.plusSeconds(1);
-			} else {
-				videoStatus = Status.Stop;
-				System.out.println("El vídeo " + idVideo + " ha finalizado.");
-				timer.cancel();
-			}
-		}
-	};
+	private Timer timer;
 
 	// play video
 	public void playVideo() {
+		timer = new Timer();
 		videoStatus = Status.Play;
-		timer.scheduleAtFixedRate(play, 1000, 1000);
+		timer.schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				if (duration.isAfter(reproductionTime)) {
+					reproductionTime = reproductionTime.plusSeconds(1);
+				} else {
+					videoStatus = Status.Stop;
+					System.out.println("El vídeo " + idVideo + " ha finalizado.");
+					timer.cancel();
+					reproductionTime = LocalTime.of(0, 0, 0);
+				}
+			}
+		}, 1000, 1000);
 	}
 
 	// pause video
 	public void pauseVideo() {
 		videoStatus = Status.Pause;
 		timer.cancel();
-		timer.purge();
 	}
 
 	// stop video
 	public void stopVideo() {
 		videoStatus = Status.Stop;
 		timer.cancel();
-		timer.purge();
 		reproductionTime = LocalTime.of(0, 0, 0);
 	}
 

@@ -6,11 +6,15 @@ import javax.management.openmbean.KeyAlreadyExistsException;
 import javax.security.sasl.AuthenticationException;
 
 import com.video.controller.UserController;
+import com.video.controller.VideoController;
 import com.video.model.User;
+import com.video.model.Video;
 
 public class MenuNoLogin {
 
 	UserController userController = new UserController();
+	VideoController videoController = new VideoController();
+	MenuVideoReproduction menuVideo = new MenuVideoReproduction();
 	
 	private int option = 100;
 	private boolean repeat;
@@ -24,6 +28,7 @@ public class MenuNoLogin {
 			System.out.println("No heu iniciat sessió. \nTria una opció:\n" + 
 								"  (1) Registrar-se.\n"	+ 
 								"  (2) Iniciar sessió.\n" + 
+								"  (3) Reproduir un vídeo sense inicia sessió.\n"+
 								"  (0) Finalitzar el programa.\n");
 
 			option= askOption();
@@ -52,9 +57,24 @@ public class MenuNoLogin {
 					System.out.println(e.getMessage());
 				}
 				break;
-
-			case 0:
+				
+			case 3:
+				try {
+					for (Video video : videoController.getAllVideos()) {
+						System.out.println(
+								"VideoID: " + video.getIdVideo() + " Títol: " + video.getTitle() + " Url: " + video.geturl());
+					}
+					System.out.println("");
+					menuVideo.menuVideo(videoController.getVideoWithId(askVideoId()));
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
 				break;
+				
+			case 0:
+				//surt del programa
+				break;
+				
 			default:
 				System.out.println("L'opció introduia no existeix.");
 				break;
@@ -96,5 +116,14 @@ public class MenuNoLogin {
 		System.out.println("Introduïu el Password:");
 		return scan.next();
 	}
-
+	
+	// preguntar un id d'un vídeo a l'usuari
+	private int askVideoId() {
+		try {
+			System.out.println("Introduïu la id del vídeo que voleu veure:");
+			return scan.nextInt();
+		} catch (Exception e) {
+			throw new NullPointerException("Cal introduir un número.");
+		}
+	}
 }
