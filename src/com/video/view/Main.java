@@ -16,8 +16,8 @@ public class Main {
 		
 		User userValidated=null;
 
-		UserController userController=new UserController();
-		VideoController videoController=new VideoController();
+		UserController userController=UserController.getInstance();
+		VideoController videoController=VideoController.getInstance();
 		
 //		/*Test
 		userController.addUser("Gerard", "Puig", "1234");

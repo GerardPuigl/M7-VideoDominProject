@@ -14,8 +14,21 @@ import com.video.persitence.VideoRepository;
 public class VideoController implements IVideoDao {
 
 	private VideoRepository videoList = new VideoRepository();
-	UserController userController = new UserController();
+	UserController userController = UserController.getInstance();
 
+	//Patron Singleton
+	private static VideoController instancia;
+	
+	private VideoController() {
+	}
+	
+	public static VideoController getInstance() {
+		if (instancia==null) {
+			instancia= new VideoController();
+		}
+		return instancia;
+	}
+	
 	// afegir nou vídeo
 	@Override
 	public void addVideo(String url, String title, LocalTime duration, int userId) {

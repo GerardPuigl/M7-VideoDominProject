@@ -12,8 +12,8 @@ import com.video.model.Video;
 
 public class MenuNoLogin {
 
-	UserController userController = new UserController();
-	VideoController videoController = new VideoController();
+	UserController userController =UserController.getInstance();
+	VideoController videoController =VideoController.getInstance();
 	MenuVideoReproduction menuVideo = new MenuVideoReproduction();
 	
 	private int option = 100;

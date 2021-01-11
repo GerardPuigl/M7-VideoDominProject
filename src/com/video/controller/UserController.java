@@ -11,6 +11,19 @@ public class UserController implements IUserDao {
 
 	private UserRepository userList = new UserRepository();
 
+	//Patron Singleton
+	private static UserController instancia;
+	
+	private UserController() {
+	}
+	
+	public static UserController getInstance() {
+		if (instancia==null) {
+			instancia= new UserController();
+		}
+		return instancia;
+	}
+	
 	//crear usuari
 	@Override
 	public void addUser(String name, String surname, String password) {

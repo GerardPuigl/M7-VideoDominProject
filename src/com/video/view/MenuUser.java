@@ -11,7 +11,7 @@ import com.video.model.Video;
 
 public class MenuUser {
 
-	VideoController videoController = new VideoController();
+	VideoController videoController = VideoController.getInstance();
 	MenuVideoReproduction menuVideo = new MenuVideoReproduction();
 
 	private int option = 100;

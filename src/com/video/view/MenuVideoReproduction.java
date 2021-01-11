@@ -7,7 +7,7 @@ import com.video.model.Video;
 
 public class MenuVideoReproduction {
 
-	VideoController videoController = new VideoController();
+	VideoController videoController = VideoController.getInstance();
 
 	private int option = 100;
 	private boolean repeat;
@@ -20,7 +20,7 @@ public class MenuVideoReproduction {
 								"  (2) Pausar.\n" + 
 								"  (3) Parar.\n" + 
 								"  (4) Veure estat de reproducció del vídeo.\n" + 
-								"  (0) Sorti de la reproducció del vídeo.\n");
+								"  (0) Sortir de la reproducció del vídeo.\n");
 
 			option = askOption();
 			switch (option) {
