@@ -2,12 +2,9 @@ package com.video.view;
 
 import java.util.Scanner;
 
-import com.video.controller.VideoController;
-import com.video.model.Video;
+import com.video.model.domain.Video;
 
 public class MenuVideoReproduction {
-
-	VideoController videoController = VideoController.getInstance();
 
 	private int option = 100;
 	private boolean repeat;
@@ -26,31 +23,37 @@ public class MenuVideoReproduction {
 			switch (option) {
 
 			// iniciar vídeo
+			
 			case 1:
 				video.playVideo();
 
-				System.out.println(videoController.getVideoReproductionStatus(video));
-				System.out.println(videoController.getVideoReproductionTime(video) + "\n");
+				System.out.println(video.getReproductionStatus());
+				System.out.println(video.getReproductionTime() + "\n");
 				break;
-
+				
 			// pausar el vídeo
+				
 			case 2:
-				videoController.pauseVideo(video);
-				System.out.println(videoController.getVideoReproductionStatus(video));
-				System.out.println(videoController.getVideoReproductionTime(video) + "\n");
+				video.pauseVideo();
+				
+				System.out.println(video.getReproductionStatus());
+				System.out.println(video.getReproductionTime() + "\n");
 				break;
 
 			// parar el vídeo
+				
 			case 3:
-				videoController.stopVideo(video);
-				System.out.println(videoController.getVideoReproductionStatus(video));
-				System.out.println(videoController.getVideoReproductionTime(video) + "\n");
+				video.stopVideo();
+				
+				System.out.println(video.getReproductionStatus());
+				System.out.println(video.getReproductionTime() + "\n");
 				break;
 
 			// veure status del vídeo
+				
 			case 4:
-				System.out.println(videoController.getVideoReproductionStatus(video));
-				System.out.println(videoController.getVideoReproductionTime(video) + "\n");
+				System.out.println(video.getReproductionStatus());
+				System.out.println(video.getReproductionTime() + "\n");
 				break;
 			case 0:
 				//surt del reproductor de vídeos
@@ -64,6 +67,7 @@ public class MenuVideoReproduction {
 	}
 
 	// introduir opció per número
+	
 	public int askOption() {
 		do {
 			try {

@@ -1,4 +1,4 @@
-package com.video.model;
+package com.video.model.domain;
 
 import java.time.LocalDateTime;
 

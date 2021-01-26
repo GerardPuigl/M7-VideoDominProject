@@ -1,6 +1,5 @@
-package com.video.model;
+package com.video.model.domain;
 
-import java.io.Console;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -118,7 +117,7 @@ public class Video {
 	}
 
 	// estat de reproducció del vídeo
-	public Status getReproductionStauts() {
+	public Status getReproductionStatus() {
 		return videoStatus;
 	}
 }

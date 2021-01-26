@@ -3,16 +3,14 @@ package com.video.view;
 import java.time.LocalTime;
 import java.util.Scanner;
 
-import javax.management.openmbean.KeyAlreadyExistsException;
-
 import com.video.controller.VideoController;
-import com.video.model.User;
-import com.video.model.Video;
+import com.video.model.domain.User;
+import com.video.model.domain.Video;
 
 public class MenuUser {
 
-	VideoController videoController = VideoController.getInstance();
-	MenuVideoReproduction menuVideo = new MenuVideoReproduction();
+	private VideoController videoController = VideoController.getInstance();
+	private MenuVideoReproduction menuVideo = new MenuVideoReproduction();
 
 	private int option = 100;
 	private boolean repeat;
@@ -36,6 +34,7 @@ public class MenuUser {
 			switch (option) {
 
 			// crear vídeo
+			
 			case 1:
 				try {
 					videoController.addVideo(askUrl(), askTitle(), askDuration(), user.getId());
@@ -45,6 +44,7 @@ public class MenuUser {
 				break;
 
 			// rebre llistat videos de l'usuari
+				
 			case 2:
 				try {
 					viewVideoList(user);
@@ -53,7 +53,8 @@ public class MenuUser {
 				}
 				break;
 
-			// veure stat de pujada d'un vídeo.
+			// veure estat de pujada d'un vídeo.
+				
 			case 3:
 				try {
 					viewVideoList(user);
@@ -65,6 +66,7 @@ public class MenuUser {
 				break;
 
 			// visualitzar vídeo
+				
 			case 4:
 				try {
 					viewVideoList(user);
@@ -73,7 +75,9 @@ public class MenuUser {
 					System.out.println(e.getMessage());
 				}
 				break;
-				
+
+				// visualitzar un vídeo
+								
 			case 5:
 				try {
 					for (Video video : videoController.getAllVideos()) {
@@ -87,8 +91,7 @@ public class MenuUser {
 				}
 				break;
 				
-			case 0:
-				//Surt del programa 
+			case 0:				//Surt del programa 
 				break;
 				
 			default:
@@ -99,6 +102,7 @@ public class MenuUser {
 	}
 
 	// veure llistat de vídeos
+	
 	private void viewVideoList(User user) {
 		for (Video video : videoController.getVideoList(user.getId())) {
 			System.out.println(
@@ -108,6 +112,7 @@ public class MenuUser {
 	}
 
 	// introduir opció per número
+	
 	public int askOption() {
 		do {
 			try {
@@ -123,18 +128,21 @@ public class MenuUser {
 	}
 
 	// preguntar la url a l'usuari.
+	
 	private String askUrl() {
 		System.out.println("Introduïu la url del vídeo:");
 		return scan.next();
 	}
 
 	// preguntar el títol del vídeo a l'usuari
+	
 	private String askTitle() {
 		System.out.println("Introduïu el títol del vídeo:");
 		return scan.next();
 	}
 
 	// preguntar un id d'un vídeo a l'usuari
+	
 	private int askVideoId() {
 		try {
 			System.out.println("Introduïu la id del vídeo que voleu veure:");
@@ -145,6 +153,7 @@ public class MenuUser {
 	}
 
 	// preguntar durada del vídeo a l'usuari
+	
 	private LocalTime askDuration() {
 		try {
 			System.out.println("Introduïu la duració del vídeo en hh:mm:ss");
