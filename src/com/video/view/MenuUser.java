@@ -3,16 +3,14 @@ package com.video.view;
 import java.time.LocalTime;
 import java.util.Scanner;
 
-import javax.management.openmbean.KeyAlreadyExistsException;
-
 import com.video.controller.VideoController;
-import com.video.model.User;
-import com.video.model.Video;
+import com.video.model.domain.User;
+import com.video.model.domain.Video;
 
 public class MenuUser {
 
-	VideoController videoController = VideoController.getInstance();
-	MenuVideoReproduction menuVideo = new MenuVideoReproduction();
+	private VideoController videoController = VideoController.getInstance();
+	private MenuVideoReproduction menuVideo = new MenuVideoReproduction();
 
 	private int option = 100;
 	private boolean repeat;

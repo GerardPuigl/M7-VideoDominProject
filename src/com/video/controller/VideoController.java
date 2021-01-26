@@ -6,17 +6,15 @@ import java.util.List;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 
-import com.video.model.Video;
-import com.video.model.Video.Status;
-import com.video.model.Video.UploadStatus;
-import com.video.persitence.VideoRepository;
+import com.video.model.domain.Video;
+import com.video.model.domain.Video.UploadStatus;
+import com.video.model.service.IVideoDAO;
+import com.video.model.service.VideoFactoryDAO;
 
-public class VideoController implements IVideoDao {
-
-	private VideoRepository videoList = new VideoRepository();
-	UserController userController = UserController.getInstance();
+public class VideoController {
 
 	//Patron Singleton
+	
 	private static VideoController instancia;
 	
 	private VideoController() {
@@ -29,11 +27,26 @@ public class VideoController implements IVideoDao {
 		return instancia;
 	}
 	
+	// patró Dao
+
+	private IVideoDAO iVideoDao = getDAO();
+
+	private VideoFactoryDAO videoFactoryDAO = null;
+
+	private IVideoDAO getDAO() {
+		if (videoFactoryDAO == null) {
+			videoFactoryDAO = new VideoFactoryDAO();
+		}
+
+		return videoFactoryDAO.getDefaultPersistence();
+
+	}
+	
 	// afegir nou vídeo
-	@Override
+
 	public void addVideo(String url, String title, LocalTime duration, int userId) {
 
-		for (Video video : videoList.getAllVideos()) {
+		for (Video video : iVideoDao.getAllVideos()) {
 			if (video.geturl().equals(url)) {
 				throw new KeyAlreadyExistsException("El vídeo introduit ja existeix.");
 			}
@@ -41,17 +54,17 @@ public class VideoController implements IVideoDao {
 
 		try {
 			Video video = new Video(url, title, userId, duration);
-			videoList.addVideo(video);
+			iVideoDao.addVideo(video);
 		} catch (Exception e) {
 			System.out.println("No s'ha pogut afegir el vídeo." + e.getMessage());
 		}
 	}
 
 	// llista de vídeos de l'usuari
-	@Override
+	
 	public List<Video> getVideoList(int userId) {
 		List<Video> userVideoList = new ArrayList<>();
-		for (Video video : videoList.getAllVideos()) {
+		for (Video video : iVideoDao.getAllVideos()) {
 			if (video.getUserId() == userId) {
 				userVideoList.add(video);
 			}
@@ -64,9 +77,9 @@ public class VideoController implements IVideoDao {
 	}
 
 	// veure estat de pujada del vídeo
-	@Override
+
 	public Enum<UploadStatus> getVideoUploadStatus(int videoId) {
-		for (Video video : videoList.getAllVideos()) {
+		for (Video video : iVideoDao.getAllVideos()) {
 			if (video.getIdVideo() == videoId) {
 				return video.getVideoState();
 			}
@@ -75,54 +88,20 @@ public class VideoController implements IVideoDao {
 	}
 
 	// buscar i retornar un objecte Video
-	@Override
+
 	public Video getVideoWithId(int videoId) {
-		for (Video video : videoList.getAllVideos()) {
+		for (Video video : iVideoDao.getAllVideos()) {
 			if (video.getIdVideo() == videoId) {
 				return video;
 			}
 		}
 		throw new NullPointerException("No existeix cap vídeo amb aquest id");
 	}
-	// iniciar reproducció vídeo
-	@Override
-	public void playVideo(Video video) {
-
-		video.playVideo();
-
-	}
-
-	// pausar reproducció vídeo
-	@Override
-	public void pauseVideo(Video video) {
-		video.pauseVideo();
-	}
-
-	// parar reproducció vídeo
-	@Override
-	public void stopVideo(Video video) {
-
-		video.stopVideo();
-	}
-
-	// obetenir el temps actual de reproducció
-	@Override
-	public LocalTime getVideoReproductionTime(Video video) {
-
-		return video.getReproductionTime();
-	}
-
-	// Obtenir l'estat actual de reproducció
-	@Override
-	public Status getVideoReproductionStatus(Video video) {
-
-		return video.getReproductionStauts();
-	}
 
 	// Obtenir una llista de tots els vídeos diponibles
-	@Override
+
 	public List<Video> getAllVideos() {
-		return videoList.getAllVideos();
+		return iVideoDao.getAllVideos();
 	}
 
 }

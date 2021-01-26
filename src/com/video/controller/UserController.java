@@ -1,49 +1,63 @@
 package com.video.controller;
 
-import java.util.List;
 import javax.management.openmbean.KeyAlreadyExistsException;
 import javax.security.sasl.AuthenticationException;
 
-import com.video.model.User;
-import com.video.persitence.UserRepository;
+import com.video.model.domain.User;
+import com.video.model.service.IUserDAO;
+import com.video.model.service.UserFactoryDAO;
 
-public class UserController implements IUserDao {
+public class UserController {
 
-	private UserRepository userList = new UserRepository();
+	// patró Singleton
 
-	//Patron Singleton
 	private static UserController instancia;
-	
+
 	private UserController() {
 	}
-	
+
 	public static UserController getInstance() {
-		if (instancia==null) {
-			instancia= new UserController();
+		if (instancia == null) {
+			instancia = new UserController();
 		}
 		return instancia;
 	}
-	
-	//crear usuari
-	@Override
+
+	// patró Dao
+
+	private IUserDAO iUserDao = getDAO();
+
+	private UserFactoryDAO userFactoryDAO = null;
+
+	private IUserDAO getDAO() {
+		if (userFactoryDAO == null) {
+			userFactoryDAO = new UserFactoryDAO();
+		}
+
+		return userFactoryDAO.getDefaultPersistence();
+
+	}
+
+	// crear usuari
+
 	public void addUser(String name, String surname, String password) {
-		for (User user : getUsers()) {
+		for (User user : iUserDao.getUsersList()) {
 			if (user.getName().equalsIgnoreCase(name) && user.getSurname().equalsIgnoreCase(surname)) {
 				throw new KeyAlreadyExistsException("El nom i cognom introduits ja existeixen.");
 			}
 		}
 		try {
 			User user = new User(name, surname, password);
-			userList.addUser(user);
+			iUserDao.addUser(user);
 		} catch (Exception e) {
 			System.out.println("No s'ha pogut crear l'usuari.\n" + e.getMessage());
 		}
 	}
-	
-	//autentificació d'usuari en escala.
-	@Override
+
+	// autentificació d'usuari en escala.
+
 	public User authenticationUser(String name, String surname, String password) throws AuthenticationException {
-		for (User user : userList.getAllUsers()) {
+		for (User user : iUserDao.getUsersList()) {
 			if (user.getName().equals(name)) {
 				if (user.getSurname().equals(surname)) {
 					if (user.getPassword().equals(password)) {
@@ -54,12 +68,5 @@ public class UserController implements IUserDao {
 		}
 		throw new AuthenticationException("L'usuari no existeix o el password és incorrecte.");
 	}
-
-
-	@Override
-	public List<User> getUsers() {
-		return 	userList.getAllUsers();
-	}
-	
 
 }
