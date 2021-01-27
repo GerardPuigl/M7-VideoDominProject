@@ -10,7 +10,8 @@ public class UserRepositoryDAO implements IUserDAO {
 
 	private static List<User> usersList = new ArrayList<>();
 
-	//Patron Singleton
+	//Patró Singleton
+
 	private static UserRepositoryDAO instancia;
 	
 	private UserRepositoryDAO() {

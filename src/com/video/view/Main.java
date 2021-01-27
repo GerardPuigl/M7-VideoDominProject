@@ -14,10 +14,13 @@ public class Main {
 
 		User userValidated = null;
 
+
+		
+		//*Test		
+		
 		UserController userController = UserController.getInstance();
 		VideoController videoController = VideoController.getInstance();
 
-//		/*Test
 		userController.addUser("Gerard", "Puig", "1234");
 		videoController.addVideo("www.servidor.com/video1", "Video1", LocalTime.parse("00:03:30"), 0);
 		videoController.addVideo("www.servidor.com/video2", "Video2", LocalTime.parse("00:01:10"), 0);
@@ -32,14 +35,17 @@ public class Main {
 							"Nom: Gerard	Cognom: Puig	Password: 1234\n" + 
 							"Nom: Joan	Cognom: Gordi	Password: 1111\n" + 
 							"Nom: Jose	Cognom: Marín	Password: 4444\n");
-//		*/
-		
+
+		//*/
+
 		// menú de crear usuari o iniciar sessió
+
 		if (userValidated == null) {
 			userValidated = menuNoLogin.userLogin();
 		}
 
 		// menú d'úsuari un cop validat l'usuari
+
 		if (userValidated != null) {
 			menuLogin.menuUser(userValidated);
 		}

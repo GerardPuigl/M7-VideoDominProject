@@ -61,6 +61,8 @@ public class MenuNoLogin {
 				}
 				break;
 
+			// visualitzar un vídeo
+				
 			case 3:
 				try {
 					for (Video video : videoController.getAllVideos()) {
@@ -87,6 +89,7 @@ public class MenuNoLogin {
 	}
 
 	// introduir opció per número
+	
 	public int askOption() {
 		do {
 			try {

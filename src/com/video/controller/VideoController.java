@@ -13,8 +13,8 @@ import com.video.model.service.VideoFactoryDAO;
 
 public class VideoController {
 
-	//Patron Singleton
-	
+	//Patró Singleton
+
 	private static VideoController instancia;
 	
 	private VideoController() {

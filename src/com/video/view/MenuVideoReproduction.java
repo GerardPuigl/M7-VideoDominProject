@@ -23,28 +23,34 @@ public class MenuVideoReproduction {
 			switch (option) {
 
 			// iniciar vídeo
+			
 			case 1:
 				video.playVideo();
 
 				System.out.println(video.getReproductionStatus());
 				System.out.println(video.getReproductionTime() + "\n");
 				break;
-
+				
 			// pausar el vídeo
+				
 			case 2:
 				video.pauseVideo();
+				
 				System.out.println(video.getReproductionStatus());
 				System.out.println(video.getReproductionTime() + "\n");
 				break;
 
 			// parar el vídeo
+				
 			case 3:
 				video.stopVideo();
+
 				System.out.println(video.getReproductionStatus());
 				System.out.println(video.getReproductionTime() + "\n");
 				break;
 
 			// veure status del vídeo
+				
 			case 4:
 				System.out.println(video.getReproductionStatus());
 				System.out.println(video.getReproductionTime() + "\n");
@@ -61,6 +67,7 @@ public class MenuVideoReproduction {
 	}
 
 	// introduir opció per número
+	
 	public int askOption() {
 		do {
 			try {
